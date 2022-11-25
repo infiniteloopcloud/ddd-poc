@@ -1,49 +1,74 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 
+	"github.com/go-chi/chi"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/account"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/utils/httpio"
 )
 
 func CreateMerchant(w http.ResponseWriter, r *http.Request) {
-	user := &types.Merchant{}
-	if err := account.NewMerchant().Create(r.Context(), user); err != nil {
-		// error response
+	req, err := httpio.Bind[types.Merchant](r.Body)
+	if err != nil {
+		httpio.ResponseBadRequest(w)
+		return
 	}
-	// created response
+	if err := account.NewMerchant().Create(r.Context(), &req); err != nil {
+		httpio.ResponseBadRequest(w)
+		return
+	}
+	httpio.ResponseSuccess(w, req)
 }
 
 func UpdateMerchant(w http.ResponseWriter, r *http.Request) {
-	user := &types.Merchant{}
-	if err := account.NewMerchant().Update(r.Context(), user); err != nil {
-		// error response
+	req, err := httpio.Bind[types.Merchant](r.Body)
+	if err != nil {
+		httpio.ResponseBadRequest(w)
+		return
 	}
-	// created response
+	if err := account.NewMerchant().Update(r.Context(), &req); err != nil {
+		httpio.ResponseBadRequest(w)
+		return
+	}
+	httpio.ResponseSuccess(w, req)
 }
 
 func DeleteMerchant(w http.ResponseWriter, r *http.Request) {
-	id := ""
+	id := chi.URLParam(r, "id")
 	if err := account.NewMerchant().Delete(r.Context(), id); err != nil {
-		// error response
+		httpio.ResponseBadRequest(w)
+		return
 	}
-	// success response
+	httpio.ResponseSuccess(w, nil)
 }
 
 func GetMerchant(w http.ResponseWriter, r *http.Request) {
-	resp, err := account.NewMerchant().Get(r.Context(), nil)
+	f, err := httpio.Bind[filters.Merchant](r.Body)
 	if err != nil {
-
+		httpio.ResponseBadRequest(w)
+		return
 	}
-	fmt.Println(resp)
+	resp, err := account.NewMerchant().Get(r.Context(), &f)
+	if err != nil {
+		httpio.ResponseBadRequest(w)
+		return
+	}
+	httpio.ResponseSuccess(w, resp)
 }
 
 func GetMerchants(w http.ResponseWriter, r *http.Request) {
-	resp, err := account.NewMerchant().Get(r.Context(), nil)
+	f, err := httpio.Bind[filters.Merchant](r.Body)
 	if err != nil {
-
+		httpio.ResponseBadRequest(w)
+		return
 	}
-	fmt.Println(resp)
+	resp, err := account.NewMerchant().GetAll(r.Context(), &f)
+	if err != nil {
+		httpio.ResponseBadRequest(w)
+		return
+	}
+	httpio.ResponseSuccess(w, resp)
 }

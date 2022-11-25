@@ -6,7 +6,8 @@ import (
 	"net/http"
 )
 
-func Bind[T any](body io.Reader) (T, error) {
+func Bind[T any](body io.ReadCloser) (T, error) {
+	defer body.Close()
 	var t T
 	if err := json.NewDecoder(body).Decode(&t); err != nil {
 		return nil, err
