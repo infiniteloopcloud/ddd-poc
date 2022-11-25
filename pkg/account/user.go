@@ -10,12 +10,12 @@ import (
 )
 
 type userService struct {
-	userRepository repository.UserStorage
+	storage repository.AccountStorage
 }
 
 func NewUser() comm.UserDescriptor {
 	return userService{
-		userRepository: repository.NewUser(),
+		storage: repository.New(),
 	}
 }
 
@@ -23,24 +23,24 @@ func (s userService) Create(ctx context.Context, u *types.User) error {
 	if err := u.Validate(); err != nil {
 		return err
 	}
-	return s.userRepository.Create(ctx, u)
+	return s.storage.User.Create(ctx, u)
 }
 
 func (s userService) Update(ctx context.Context, u *types.User) error {
 	if err := u.Validate(); err != nil {
 		return err
 	}
-	return s.userRepository.Update(ctx, u)
+	return s.storage.User.Update(ctx, u)
 }
 
 func (s userService) Delete(ctx context.Context, id string) error {
-	return s.userRepository.Delete(ctx, id)
+	return s.storage.User.Delete(ctx, id)
 }
 
 func (s userService) Get(ctx context.Context, r *filters.User) (types.User, error) {
-	return s.userRepository.Get(ctx, r)
+	return s.storage.User.Get(ctx, r)
 }
 
 func (s userService) GetAll(ctx context.Context, r *filters.User) (types.User, error) {
-	return s.userRepository.GetAll(ctx, r)
+	return s.storage.User.GetAll(ctx, r)
 }

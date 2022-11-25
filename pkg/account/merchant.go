@@ -11,22 +11,20 @@ import (
 )
 
 type merchantService struct {
-	userRepository     repository.UserStorage
-	merchantRepository repository.MerchantStorage
+	storage repository.AccountStorage
 }
 
 func NewMerchant() comm.MerchantDescriptor {
 	return merchantService{
-		userRepository:     repository.NewUser(),
-		merchantRepository: repository.NewMerchant(),
+		storage: repository.New(),
 	}
 }
 
 func (s merchantService) Create(ctx context.Context, u *types.Merchant) error {
-	if err := s.merchantRepository.Create(ctx, u); err != nil {
+	if err := s.storage.Merchant.Create(ctx, u); err != nil {
 		return err
 	}
-	return s.userRepository.Create(ctx, &types.User{
+	return s.storage.User.Create(ctx, &types.User{
 		AccountTypeID: u.ID,
 		Name:          "Test",
 		Email:         "test@test.com",
@@ -36,17 +34,17 @@ func (s merchantService) Create(ctx context.Context, u *types.Merchant) error {
 }
 
 func (s merchantService) Update(ctx context.Context, u *types.Merchant) error {
-	return s.merchantRepository.Update(ctx, u)
+	return s.storage.Merchant.Update(ctx, u)
 }
 
 func (s merchantService) Delete(ctx context.Context, id string) error {
-	return s.merchantRepository.Delete(ctx, id)
+	return s.storage.Merchant.Delete(ctx, id)
 }
 
 func (s merchantService) Get(ctx context.Context, r *filters.Merchant) (types.Merchant, error) {
-	return s.merchantRepository.Get(ctx, r)
+	return s.storage.Merchant.Get(ctx, r)
 }
 
 func (s merchantService) GetAll(ctx context.Context, r *filters.Merchant) (types.Merchant, error) {
-	return s.merchantRepository.GetAll(ctx, r)
+	return s.storage.Merchant.GetAll(ctx, r)
 }
