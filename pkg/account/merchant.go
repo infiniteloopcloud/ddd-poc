@@ -24,6 +24,7 @@ func (s merchantService) Create(ctx context.Context, u *types.Merchant) error {
 	if err := s.storage.Merchant.Create(ctx, u); err != nil {
 		return err
 	}
+	// assume that we want to create a user as well
 	return s.storage.User.Create(ctx, &types.User{
 		AccountTypeID: u.ID,
 		Name:          "Test",
