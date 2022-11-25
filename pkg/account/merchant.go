@@ -17,8 +17,8 @@ type merchantService struct {
 
 func NewMerchant() comm.MerchantDescriptor {
 	return merchantService{
-		userRepository:     NewUser(),
-		merchantRepository: NewMerchant(),
+		userRepository:     repository.NewUser(),
+		merchantRepository: repository.NewMerchant(),
 	}
 }
 

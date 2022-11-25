@@ -12,9 +12,9 @@ type gatewayService struct {
 	gatewayStorage repository.GatewayStorage
 }
 
-func NewGateway(gatewayStorage repository.GatewayStorage) comm.GatewayDescriptor {
+func NewGateway() comm.GatewayDescriptor {
 	return gatewayService{
-		gatewayStorage: gatewayStorage,
+		gatewayStorage: repository.NewGateway(),
 	}
 }
 

@@ -13,9 +13,9 @@ type transactionService struct {
 	transactionStorage repository.TransactionStorage
 }
 
-func NewTransaction(transactStorage repository.TransactionStorage) comm.TransactionDescriptor {
+func NewTransaction() comm.TransactionDescriptor {
 	return transactionService{
-		transactionStorage: transactStorage,
+		transactionStorage: repository.NewTransaction(),
 	}
 }
 
