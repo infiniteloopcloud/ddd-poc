@@ -1,7 +1,7 @@
 package types
 
 type Product struct {
-	ID string
+	ID string `json:"id"`
 }
 
 func (p Product) Validate() error {
@@ -10,8 +10,8 @@ func (p Product) Validate() error {
 }
 
 type Cart struct {
-	ID       string
-	Products []Product
+	ID       string    `json:"id"`
+	Products []Product `json:"products"`
 }
 
 func (p Cart) Validate() error {
@@ -20,6 +20,7 @@ func (p Cart) Validate() error {
 }
 
 type PayCart struct {
+	Transaction Transaction `json:"transaction"`
 }
 
 func (p PayCart) Validate() error {

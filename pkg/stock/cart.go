@@ -11,18 +11,18 @@ import (
 )
 
 type cartService struct {
-	payment        comm.PaymentDescriptor
+	transaction    comm.TransactionDescriptor
 	cartStorage    repository.CartStorage
 	productStorage repository.ProductStorage
 }
 
 func NewCart(
-	payment comm.PaymentDescriptor,
+	payment comm.TransactionDescriptor,
 	cartStorage repository.CartStorage,
 	productStorage repository.ProductStorage,
 ) comm.CartDescriptor {
 	return cartService{
-		payment:        payment,
+		transaction:    payment,
 		cartStorage:    cartStorage,
 		productStorage: productStorage,
 	}
@@ -108,5 +108,5 @@ func (cs cartService) Pay(ctx context.Context, r *types.PayCart) error {
 	if err := r.Validate(); err != nil {
 		return err
 	}
-	return cs.payment.Create()
+	return cs.transaction.Create(ctx, &r.Transaction)
 }
