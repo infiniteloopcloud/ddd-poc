@@ -4,18 +4,19 @@ import (
 	"context"
 	"errors"
 
-	"github.com/infiniteloopcloud/webshop-poc-ddd/comm"
+	comm2 "github.com/infiniteloopcloud/webshop-poc-ddd/pkg/payment/comm"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/stock/comm"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/stock/repository"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"
 )
 
 type cartService struct {
-	transaction comm.TransactionDescriptor
+	transaction comm2.TransactionDescriptor
 	storage     repository.StockStorage
 }
 
-func NewCart(payment comm.TransactionDescriptor) comm.CartDescriptor {
+func NewCart(payment comm2.TransactionDescriptor) comm.CartDescriptor {
 	return cartService{
 		transaction: payment,
 		storage:     repository.New(),

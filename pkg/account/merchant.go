@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/infiniteloopcloud/webshop-poc-ddd/comm"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/account/comm"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/account/repository"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"

@@ -3,7 +3,7 @@ package stock
 import (
 	"context"
 
-	"github.com/infiniteloopcloud/webshop-poc-ddd/comm"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/stock/comm"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/stock/repository"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"

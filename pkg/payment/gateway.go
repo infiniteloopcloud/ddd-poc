@@ -3,7 +3,7 @@ package payment
 import (
 	"context"
 
-	"github.com/infiniteloopcloud/webshop-poc-ddd/comm"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/payment/comm"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/payment/repository"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"

@@ -4,7 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/infiniteloopcloud/webshop-poc-ddd/comm"
+	comm2 "github.com/infiniteloopcloud/webshop-poc-ddd/pkg/account/comm"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/payment/comm"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/payment/repository"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"
@@ -13,11 +14,11 @@ import (
 type transactionService struct {
 	paymentStorage repository.PaymentStorage
 
-	merchant comm.MerchantDescriptor
-	user     comm.UserDescriptor
+	merchant comm2.MerchantDescriptor
+	user     comm2.UserDescriptor
 }
 
-func NewTransaction(merchant comm.MerchantDescriptor, user comm.UserDescriptor) comm.TransactionDescriptor {
+func NewTransaction(merchant comm2.MerchantDescriptor, user comm2.UserDescriptor) comm.TransactionDescriptor {
 	return transactionService{
 		paymentStorage: repository.New(),
 		merchant:       merchant,
