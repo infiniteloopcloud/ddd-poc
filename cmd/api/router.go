@@ -16,7 +16,17 @@ func Run() error {
 	r.Use(middleware.Logger)
 
 	r.Route("/api", func(r chi.Router) {
+		r.Post("/merchants", accountControllers.CreateMerchant)
+		r.Put("/merchants/{id}", accountControllers.UpdateMerchant)
+		r.Delete("/merchants/{id}", accountControllers.DeleteMerchant)
 		r.Get("/merchants/{id}", accountControllers.GetMerchant)
+		r.Get("/merchants", accountControllers.GetMerchants)
+
+		r.Post("/users", accountControllers.CreateUser)
+		r.Put("/users/{id}", accountControllers.UpdateUser)
+		r.Delete("/users/{id}", accountControllers.DeleteUser)
+		r.Get("/users/{id}", accountControllers.GetUser)
+		r.Get("/users", accountControllers.GetUsers)
 
 		r.Post("/transactions", paymentControllers.CreateTransaction)
 		r.Get("/transactions/{id}", paymentControllers.GetTransaction)
