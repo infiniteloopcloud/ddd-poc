@@ -18,17 +18,21 @@ func Run() error {
 	r.Route("/api", func(r chi.Router) {
 		r.Get("/merchants/{id}", accountControllers.GetMerchant)
 
+		r.Post("/transactions", paymentControllers.CreateTransaction)
 		r.Get("/transactions/{id}", paymentControllers.GetTransaction)
 		r.Get("/transactions", paymentControllers.GetAllTransactions)
-		r.Post("/transactions", paymentControllers.CreateTransaction)
 
+		r.Post("/gateways", paymentControllers.SetupGateway)
+		r.Put("/gateways/{id}", paymentControllers.UpdateGateway)
+		r.Delete("/gateways/{id}", paymentControllers.DeleteGateway)
 		r.Get("/gateways/{id}", paymentControllers.GetGateway)
 		r.Get("/gateways", paymentControllers.GetAllGateway)
-		r.Post("/gateways", paymentControllers.SetupGateway)
-		r.Put("/gateways", paymentControllers.UpdateGateway)
-		r.Delete("/gateways/{id}", paymentControllers.DeleteGateway)
 
+		r.Post("/products", stockControllers.CreateProduct)
+		r.Put("/products/{id}", stockControllers.UpdateProduct)
+		r.Delete("/products/{id}", stockControllers.DeleteProduct)
 		r.Get("/products/{id}", stockControllers.GetProduct)
+		r.Get("/products", stockControllers.GetAllProducts)
 	})
 
 	return http.ListenAndServe(settings.Get().HttpAddress, r)
