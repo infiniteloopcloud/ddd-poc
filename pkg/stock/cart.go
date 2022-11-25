@@ -7,8 +7,8 @@ import (
 	comm2 "github.com/infiniteloopcloud/webshop-poc-ddd/pkg/payment/comm"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/stock/comm"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/stock/repository"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/types"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/proto"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/proto/filters"
 )
 
 type cartService struct {
@@ -23,7 +23,7 @@ func NewCart(payment comm2.TransactionDescriptor) comm.CartDescriptor {
 	}
 }
 
-func (cs cartService) Create(ctx context.Context, r *types.Cart) (*types.Cart, error) {
+func (cs cartService) Create(ctx context.Context, r *proto.Cart) (*proto.Cart, error) {
 	if err := r.Validate(); err != nil {
 		return nil, err
 	}
@@ -31,7 +31,7 @@ func (cs cartService) Create(ctx context.Context, r *types.Cart) (*types.Cart, e
 	return cs.storage.Cart.Create(ctx, r)
 }
 
-func (cs cartService) Update(ctx context.Context, r *types.Cart) (*types.Cart, error) {
+func (cs cartService) Update(ctx context.Context, r *proto.Cart) (*proto.Cart, error) {
 	if err := r.Validate(); err != nil {
 		return nil, err
 	}
@@ -48,11 +48,11 @@ func (cs cartService) Delete(ctx context.Context, id string) error {
 	return cs.storage.Cart.Delete(ctx, id)
 }
 
-func (cs cartService) Get(ctx context.Context, f *filters.Cart) (*types.Cart, error) {
+func (cs cartService) Get(ctx context.Context, f *filters.Cart) (*proto.Cart, error) {
 	return cs.storage.Cart.Get(ctx, f)
 }
 
-func (cs cartService) GetAll(ctx context.Context, f *filters.Cart) ([]types.Cart, error) {
+func (cs cartService) GetAll(ctx context.Context, f *filters.Cart) ([]proto.Cart, error) {
 	return cs.storage.Cart.GetAll(ctx, f)
 }
 
@@ -99,7 +99,7 @@ func (cs cartService) DeleteProductFromCart(ctx context.Context, productID, cart
 	return err
 }
 
-func (cs cartService) Pay(ctx context.Context, r *types.PayCart) error {
+func (cs cartService) Pay(ctx context.Context, r *proto.PayCart) error {
 	if err := r.Validate(); err != nil {
 		return err
 	}

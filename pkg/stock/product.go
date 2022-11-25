@@ -5,8 +5,8 @@ import (
 
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/stock/comm"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/stock/repository"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/types"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/proto"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/proto/filters"
 )
 
 type productService struct {
@@ -19,14 +19,14 @@ func NewProduct() comm.ProductDescriptor {
 	}
 }
 
-func (p productService) Create(ctx context.Context, r *types.Product) (*types.Product, error) {
+func (p productService) Create(ctx context.Context, r *proto.Product) (*proto.Product, error) {
 	if err := r.Validate(); err != nil {
 		return nil, err
 	}
 	return p.storage.Product.Create(ctx, r)
 }
 
-func (p productService) Update(ctx context.Context, r *types.Product) (*types.Product, error) {
+func (p productService) Update(ctx context.Context, r *proto.Product) (*proto.Product, error) {
 	if err := r.Validate(); err != nil {
 		return nil, err
 	}
@@ -43,10 +43,10 @@ func (p productService) Delete(ctx context.Context, id string) error {
 	return p.storage.Product.Delete(ctx, id)
 }
 
-func (p productService) Get(ctx context.Context, f *filters.Product) (*types.Product, error) {
+func (p productService) Get(ctx context.Context, f *filters.Product) (*proto.Product, error) {
 	return p.storage.Product.Get(ctx, f)
 }
 
-func (p productService) GetAll(ctx context.Context, f *filters.Product) ([]types.Product, error) {
+func (p productService) GetAll(ctx context.Context, f *filters.Product) ([]proto.Product, error) {
 	return p.storage.Product.GetAll(ctx, f)
 }

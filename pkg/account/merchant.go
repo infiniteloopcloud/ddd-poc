@@ -6,8 +6,8 @@ import (
 
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/account/comm"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/account/repository"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/types"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/proto"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/proto/filters"
 )
 
 type merchantService struct {
@@ -20,12 +20,12 @@ func NewMerchant() comm.MerchantDescriptor {
 	}
 }
 
-func (s merchantService) Create(ctx context.Context, u *types.Merchant) error {
+func (s merchantService) Create(ctx context.Context, u *proto.Merchant) error {
 	if err := s.storage.Merchant.Create(ctx, u); err != nil {
 		return err
 	}
 	// assume that we want to create a user as well
-	return s.storage.User.Create(ctx, &types.User{
+	return s.storage.User.Create(ctx, &proto.User{
 		AccountTypeID: u.ID,
 		Name:          "Test",
 		Email:         "test@test.com",
@@ -34,7 +34,7 @@ func (s merchantService) Create(ctx context.Context, u *types.Merchant) error {
 	})
 }
 
-func (s merchantService) Update(ctx context.Context, u *types.Merchant) error {
+func (s merchantService) Update(ctx context.Context, u *proto.Merchant) error {
 	return s.storage.Merchant.Update(ctx, u)
 }
 
@@ -42,10 +42,10 @@ func (s merchantService) Delete(ctx context.Context, id string) error {
 	return s.storage.Merchant.Delete(ctx, id)
 }
 
-func (s merchantService) Get(ctx context.Context, r *filters.Merchant) (types.Merchant, error) {
+func (s merchantService) Get(ctx context.Context, r *filters.Merchant) (proto.Merchant, error) {
 	return s.storage.Merchant.Get(ctx, r)
 }
 
-func (s merchantService) GetAll(ctx context.Context, r *filters.Merchant) (types.Merchant, error) {
+func (s merchantService) GetAll(ctx context.Context, r *filters.Merchant) (proto.Merchant, error) {
 	return s.storage.Merchant.GetAll(ctx, r)
 }

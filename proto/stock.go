@@ -1,4 +1,4 @@
-package types
+package proto
 
 type Product struct {
 	ID string `json:"id"`

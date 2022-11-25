@@ -7,8 +7,8 @@ import (
 	comm2 "github.com/infiniteloopcloud/webshop-poc-ddd/pkg/account/comm"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/payment/comm"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/payment/repository"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/types"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/proto"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/proto/filters"
 )
 
 type transactionService struct {
@@ -26,7 +26,7 @@ func NewTransaction(merchant comm2.MerchantDescriptor, user comm2.UserDescriptor
 	}
 }
 
-func (t transactionService) Create(ctx context.Context, r *types.Transaction) error {
+func (t transactionService) Create(ctx context.Context, r *proto.Transaction) error {
 	if err := r.Validate(); err != nil {
 		return err
 	}
@@ -61,10 +61,10 @@ func (t transactionService) Create(ctx context.Context, r *types.Transaction) er
 	return t.paymentStorage.Transaction.Update(ctx, r)
 }
 
-func (t transactionService) Get(ctx context.Context, f *filters.Transaction) (*types.Transaction, error) {
+func (t transactionService) Get(ctx context.Context, f *filters.Transaction) (*proto.Transaction, error) {
 	return t.paymentStorage.Transaction.Get(ctx, f)
 }
 
-func (t transactionService) GetAll(ctx context.Context, f *filters.Transaction) ([]types.Transaction, error) {
+func (t transactionService) GetAll(ctx context.Context, f *filters.Transaction) ([]proto.Transaction, error) {
 	return t.paymentStorage.Transaction.GetAll(ctx, f)
 }

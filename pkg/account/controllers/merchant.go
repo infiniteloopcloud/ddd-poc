@@ -5,13 +5,13 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/account"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/types"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/proto"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/proto/filters"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/utils/httpio"
 )
 
 func CreateMerchant(w http.ResponseWriter, r *http.Request) {
-	req, err := httpio.Bind[types.Merchant](r.Body)
+	req, err := httpio.Bind[proto.Merchant](r.Body)
 	if err != nil {
 		httpio.ResponseBadRequest(w)
 		return
@@ -24,7 +24,7 @@ func CreateMerchant(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateMerchant(w http.ResponseWriter, r *http.Request) {
-	req, err := httpio.Bind[types.Merchant](r.Body)
+	req, err := httpio.Bind[proto.Merchant](r.Body)
 	if err != nil {
 		httpio.ResponseBadRequest(w)
 		return

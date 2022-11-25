@@ -7,16 +7,16 @@ import (
 
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/account/mock"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/account/repository"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/types"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/proto"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/proto/filters"
 )
 
 func TestMockExample(t *testing.T) {
 	s := merchantService{storage: repository.New()}
 	// mock the merchant get db call
 	s.storage.Merchant = mock.Merchant{
-		GetFunc: func(ctx context.Context, r *filters.Merchant) (types.Merchant, error) {
-			return types.Merchant{
+		GetFunc: func(ctx context.Context, r *filters.Merchant) (proto.Merchant, error) {
+			return proto.Merchant{
 				ID:        "test",
 				Name:      "test name",
 				Email:     "test@test.com",
