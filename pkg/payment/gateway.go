@@ -47,3 +47,9 @@ func (g gatewayService) Get(ctx context.Context, f *filters.Gateway) (*types.Gat
 func (g gatewayService) GetAll(ctx context.Context, f *filters.Gateway) ([]types.Gateway, error) {
 	return g.paymentStorage.Gateway.GetAll(ctx, f)
 }
+
+func (g gatewayService) SendTransaction(ctx context.Context, gateway *types.Gateway, r *types.Transaction) error {
+	// map types.Transaction into gateway specific request, send the transaction, map gateway response into
+	// types.Transaction
+	return nil
+}

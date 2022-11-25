@@ -5,4 +5,5 @@ type Transaction struct {
 }
 
 type Gateway struct {
+	ID string
 }

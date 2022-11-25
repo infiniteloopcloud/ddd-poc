@@ -9,6 +9,7 @@ import (
 
 type Storage interface {
 	Create(ctx context.Context, r *types.Transaction) error
+	Update(ctx context.Context, r *types.Transaction) error
 	Get(ctx context.Context, f *filters.Transaction) (*types.Transaction, error)
 	GetAll(ctx context.Context, f *filters.Transaction) ([]types.Transaction, error)
 }
@@ -21,6 +22,10 @@ func New() Storage {
 
 func (t transactionStorage) Create(ctx context.Context, r *types.Transaction) error {
 	return newSQL().Create(ctx, r)
+}
+
+func (t transactionStorage) Update(ctx context.Context, r *types.Transaction) error {
+	return newSQL().Update(ctx, r)
 }
 
 func (t transactionStorage) Get(ctx context.Context, f *filters.Transaction) (*types.Transaction, error) {

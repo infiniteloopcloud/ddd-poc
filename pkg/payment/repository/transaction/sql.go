@@ -19,6 +19,11 @@ func (s sqlHandler) Create(ctx context.Context, r *types.Transaction) error {
 	panic("implement me")
 }
 
+func (s sqlHandler) Update(ctx context.Context, r *types.Transaction) error {
+	// TODO implement me
+	panic("implement me")
+}
+
 func (s sqlHandler) Get(ctx context.Context, f *filters.Transaction) (*types.Transaction, error) {
 	// TODO implement me
 	panic("implement me")
