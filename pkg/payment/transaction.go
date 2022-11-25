@@ -5,8 +5,8 @@ import (
 
 	"github.com/infiniteloopcloud/webshop-poc-ddd/comm"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/payment/repository"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/payment/repository/filters"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"
 )
 
 type transactionService struct {

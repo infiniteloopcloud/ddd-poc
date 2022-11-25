@@ -3,8 +3,8 @@ package comm
 import (
 	"context"
 
-	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/payment/repository/filters"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"
 )
 
 type TransactionDescriptor interface {

@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/payment"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/payment/repository/filters"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"
 )
 
 func CreateTransaction(w http.ResponseWriter, r *http.Request) {
