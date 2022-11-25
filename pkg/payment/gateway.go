@@ -10,12 +10,12 @@ import (
 )
 
 type gatewayService struct {
-	paymentStorage repository.PaymentStorage
+	storage repository.PaymentStorage
 }
 
 func NewGateway() comm.GatewayDescriptor {
 	return gatewayService{
-		paymentStorage: repository.New(),
+		storage: repository.New(),
 	}
 }
 
@@ -25,7 +25,7 @@ func (g gatewayService) Setup(ctx context.Context, r *types.Gateway) error {
 	}
 
 	// TODO implement some kind of a setup logic
-	return g.paymentStorage.Gateway.Create(ctx, r)
+	return g.storage.Gateway.Create(ctx, r)
 }
 
 func (g gatewayService) Update(ctx context.Context, r *types.Gateway) error {
@@ -33,19 +33,19 @@ func (g gatewayService) Update(ctx context.Context, r *types.Gateway) error {
 		return err
 	}
 
-	return g.paymentStorage.Gateway.Update(ctx, r)
+	return g.storage.Gateway.Update(ctx, r)
 }
 
 func (g gatewayService) Delete(ctx context.Context, id string) error {
-	return g.paymentStorage.Gateway.Delete(ctx, id)
+	return g.storage.Gateway.Delete(ctx, id)
 }
 
 func (g gatewayService) Get(ctx context.Context, f *filters.Gateway) (*types.Gateway, error) {
-	return g.paymentStorage.Gateway.Get(ctx, f)
+	return g.storage.Gateway.Get(ctx, f)
 }
 
 func (g gatewayService) GetAll(ctx context.Context, f *filters.Gateway) ([]types.Gateway, error) {
-	return g.paymentStorage.Gateway.GetAll(ctx, f)
+	return g.storage.Gateway.GetAll(ctx, f)
 }
 
 func (g gatewayService) SendTransaction(ctx context.Context, gateway *types.Gateway, r *types.Transaction) error {

@@ -11,8 +11,8 @@ import (
 )
 
 type cartService struct {
-	transaction  comm.TransactionDescriptor
-	stockStorage repository.StockStorage
+	transaction comm.TransactionDescriptor
+	storage     repository.StockStorage
 }
 
 func NewCart(
@@ -20,8 +20,8 @@ func NewCart(
 	stockStorage repository.StockStorage,
 ) comm.CartDescriptor {
 	return cartService{
-		transaction:  payment,
-		stockStorage: stockStorage,
+		transaction: payment,
+		storage:     stockStorage,
 	}
 }
 
@@ -30,7 +30,7 @@ func (cs cartService) Create(ctx context.Context, r *types.Cart) (*types.Cart, e
 		return nil, err
 	}
 
-	return cs.stockStorage.Cart.Create(ctx, r)
+	return cs.storage.Cart.Create(ctx, r)
 }
 
 func (cs cartService) Update(ctx context.Context, r *types.Cart) (*types.Cart, error) {
@@ -38,34 +38,34 @@ func (cs cartService) Update(ctx context.Context, r *types.Cart) (*types.Cart, e
 		return nil, err
 	}
 
-	return cs.stockStorage.Cart.Update(ctx, r)
+	return cs.storage.Cart.Update(ctx, r)
 }
 
 func (cs cartService) Delete(ctx context.Context, id string) error {
-	if _, err := cs.stockStorage.Cart.Get(ctx, &filters.Cart{
+	if _, err := cs.storage.Cart.Get(ctx, &filters.Cart{
 		ID: id,
 	}); err != nil {
 		return err
 	}
-	return cs.stockStorage.Cart.Delete(ctx, id)
+	return cs.storage.Cart.Delete(ctx, id)
 }
 
 func (cs cartService) Get(ctx context.Context, f *filters.Cart) (*types.Cart, error) {
-	return cs.stockStorage.Cart.Get(ctx, f)
+	return cs.storage.Cart.Get(ctx, f)
 }
 
 func (cs cartService) GetAll(ctx context.Context, f *filters.Cart) ([]types.Cart, error) {
-	return cs.stockStorage.Cart.GetAll(ctx, f)
+	return cs.storage.Cart.GetAll(ctx, f)
 }
 
 func (cs cartService) AddProductToCart(ctx context.Context, productID, cartID string) error {
-	p, err := cs.stockStorage.Product.Get(ctx, &filters.Product{
+	p, err := cs.storage.Product.Get(ctx, &filters.Product{
 		ID: productID,
 	})
 	if err != nil {
 		return err
 	}
-	c, err := cs.stockStorage.Cart.Get(ctx, &filters.Cart{
+	c, err := cs.storage.Cart.Get(ctx, &filters.Cart{
 		ID: cartID,
 	})
 	if err != nil {
@@ -73,12 +73,12 @@ func (cs cartService) AddProductToCart(ctx context.Context, productID, cartID st
 	}
 	c.Products = append(c.Products, *p)
 
-	_, err = cs.stockStorage.Cart.Update(ctx, c)
+	_, err = cs.storage.Cart.Update(ctx, c)
 	return err
 }
 
 func (cs cartService) DeleteProductFromCart(ctx context.Context, productID, cartID string) error {
-	c, err := cs.stockStorage.Cart.Get(ctx, &filters.Cart{
+	c, err := cs.storage.Cart.Get(ctx, &filters.Cart{
 		ID: cartID,
 	})
 	if err != nil {
@@ -97,7 +97,7 @@ func (cs cartService) DeleteProductFromCart(ctx context.Context, productID, cart
 
 	c.Products = append(c.Products[:foundIndex], c.Products[foundIndex+1:]...)
 
-	_, err = cs.stockStorage.Cart.Update(ctx, c)
+	_, err = cs.storage.Cart.Update(ctx, c)
 	return err
 }
 

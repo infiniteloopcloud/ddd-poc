@@ -10,12 +10,12 @@ import (
 )
 
 type productService struct {
-	stockStorage repository.StockStorage
+	storage repository.StockStorage
 }
 
 func NewProduct(stockStorage repository.StockStorage) comm.ProductDescriptor {
 	return productService{
-		stockStorage: stockStorage,
+		storage: stockStorage,
 	}
 }
 
@@ -23,30 +23,30 @@ func (p productService) Create(ctx context.Context, r *types.Product) (*types.Pr
 	if err := r.Validate(); err != nil {
 		return nil, err
 	}
-	return p.stockStorage.Product.Create(ctx, r)
+	return p.storage.Product.Create(ctx, r)
 }
 
 func (p productService) Update(ctx context.Context, r *types.Product) (*types.Product, error) {
 	if err := r.Validate(); err != nil {
 		return nil, err
 	}
-	return p.stockStorage.Product.Update(ctx, r)
+	return p.storage.Product.Update(ctx, r)
 }
 
 func (p productService) Delete(ctx context.Context, id string) error {
-	_, err := p.stockStorage.Product.Get(ctx, &filters.Product{
+	_, err := p.storage.Product.Get(ctx, &filters.Product{
 		ID: id,
 	})
 	if err != nil {
 		return err
 	}
-	return p.stockStorage.Product.Delete(ctx, id)
+	return p.storage.Product.Delete(ctx, id)
 }
 
 func (p productService) Get(ctx context.Context, f *filters.Product) (*types.Product, error) {
-	return p.stockStorage.Product.Get(ctx, f)
+	return p.storage.Product.Get(ctx, f)
 }
 
 func (p productService) GetAll(ctx context.Context, f *filters.Product) ([]types.Product, error) {
-	return p.stockStorage.Product.GetAll(ctx, f)
+	return p.storage.Product.GetAll(ctx, f)
 }
