@@ -13,9 +13,9 @@ type productService struct {
 	storage repository.StockStorage
 }
 
-func NewProduct(stockStorage repository.StockStorage) comm.ProductDescriptor {
+func NewProduct() comm.ProductDescriptor {
 	return productService{
-		storage: stockStorage,
+		storage: repository.New(),
 	}
 }
 

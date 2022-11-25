@@ -15,13 +15,10 @@ type cartService struct {
 	storage     repository.StockStorage
 }
 
-func NewCart(
-	payment comm.TransactionDescriptor,
-	stockStorage repository.StockStorage,
-) comm.CartDescriptor {
+func NewCart(payment comm.TransactionDescriptor) comm.CartDescriptor {
 	return cartService{
 		transaction: payment,
-		storage:     stockStorage,
+		storage:     repository.New(),
 	}
 }
 
