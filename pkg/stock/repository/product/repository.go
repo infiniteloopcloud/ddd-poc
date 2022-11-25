@@ -1,4 +1,4 @@
-package repository
+package product
 
 import (
 	"context"
@@ -7,7 +7,7 @@ import (
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"
 )
 
-type ProductStorage interface {
+type Storage interface {
 	Create(ctx context.Context, r *types.Product) (*types.Product, error)
 	Update(ctx context.Context, r *types.Product) (*types.Product, error)
 	Delete(ctx context.Context, id string) error
@@ -17,31 +17,26 @@ type ProductStorage interface {
 
 type productStorage struct{}
 
-func NewProduct() ProductStorage {
+func New() Storage {
 	return productStorage{}
 }
 
 func (p productStorage) Create(ctx context.Context, r *types.Product) (*types.Product, error) {
-	// TODO implement me
-	panic("implement me")
+	return newSQL().Create(ctx, r)
 }
 
 func (p productStorage) Update(ctx context.Context, r *types.Product) (*types.Product, error) {
-	// TODO implement me
-	panic("implement me")
+	return newSQL().Update(ctx, r)
 }
 
 func (p productStorage) Delete(ctx context.Context, id string) error {
-	// TODO implement me
-	panic("implement me")
+	return newSQL().Delete(ctx, id)
 }
 
 func (p productStorage) Get(ctx context.Context, f *filters.Product) (*types.Product, error) {
-	// TODO implement me
-	panic("implement me")
+	return newSQL().Get(ctx, f)
 }
 
 func (p productStorage) GetAll(ctx context.Context, f *filters.Product) ([]types.Product, error) {
-	// TODO implement me
-	panic("implement me")
+	return newSQL().GetAll(ctx, f)
 }
