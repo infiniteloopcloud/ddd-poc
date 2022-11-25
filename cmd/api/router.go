@@ -33,6 +33,12 @@ func Run() error {
 		r.Delete("/products/{id}", stockControllers.DeleteProduct)
 		r.Get("/products/{id}", stockControllers.GetProduct)
 		r.Get("/products", stockControllers.GetAllProducts)
+
+		r.Post("/carts", stockControllers.CreateCart)
+		r.Put("/carts/{id}", stockControllers.UpdateCart)
+		r.Delete("/carts/{id}", stockControllers.DeleteCart)
+		r.Get("/carts/{id}", stockControllers.GetCart)
+		r.Get("/carts", stockControllers.GetAllCarts)
 	})
 
 	return http.ListenAndServe(settings.Get().HttpAddress, r)
