@@ -10,12 +10,12 @@ import (
 )
 
 type transactionService struct {
-	transactionStorage repository.TransactionStorage
+	paymentStorage repository.PaymentStorage
 }
 
 func NewTransaction() comm.TransactionDescriptor {
 	return transactionService{
-		transactionStorage: repository.NewTransaction(),
+		paymentStorage: repository.New(),
 	}
 }
 
@@ -24,13 +24,13 @@ func (t transactionService) Create(ctx context.Context, r *types.Transaction) er
 		return err
 	}
 
-	return t.transactionStorage.Create(ctx, r)
+	return t.paymentStorage.Transaction.Create(ctx, r)
 }
 
 func (t transactionService) Get(ctx context.Context, f *filters.Transaction) (*types.Transaction, error) {
-	return t.transactionStorage.Get(ctx, f)
+	return t.paymentStorage.Transaction.Get(ctx, f)
 }
 
 func (t transactionService) GetAll(ctx context.Context, f *filters.Transaction) ([]types.Transaction, error) {
-	return t.transactionStorage.GetAll(ctx, f)
+	return t.paymentStorage.Transaction.GetAll(ctx, f)
 }

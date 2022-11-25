@@ -9,10 +9,8 @@ import (
 
 func SetupGateway(w http.ResponseWriter, r *http.Request) {
 	gw := &types.Gateway{}
-	res, err := payment.NewGateway().Setup(r.Context(), gw)
-	if err != nil {
+	if err := payment.NewGateway().Setup(r.Context(), gw); err != nil {
 		// error response
 	}
-	res = res
 	// created response
 }

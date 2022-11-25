@@ -1,4 +1,4 @@
-package repository
+package transaction
 
 import (
 	"context"
@@ -7,7 +7,7 @@ import (
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"
 )
 
-type TransactionStorage interface {
+type Storage interface {
 	Create(ctx context.Context, r *types.Transaction) error
 	Get(ctx context.Context, f *filters.Transaction) (*types.Transaction, error)
 	GetAll(ctx context.Context, f *filters.Transaction) ([]types.Transaction, error)
@@ -15,21 +15,18 @@ type TransactionStorage interface {
 
 type transactionStorage struct{}
 
-func NewTransaction() TransactionStorage {
+func New() Storage {
 	return transactionStorage{}
 }
 
 func (t transactionStorage) Create(ctx context.Context, r *types.Transaction) error {
-	// TODO implement me
-	panic("implement me")
+	return newSQL().Create(ctx, r)
 }
 
 func (t transactionStorage) Get(ctx context.Context, f *filters.Transaction) (*types.Transaction, error) {
-	// TODO implement me
-	panic("implement me")
+	return newSQL().Get(ctx, f)
 }
 
 func (t transactionStorage) GetAll(ctx context.Context, f *filters.Transaction) ([]types.Transaction, error) {
-	// TODO implement me
-	panic("implement me")
+	return newSQL().GetAll(ctx, f)
 }

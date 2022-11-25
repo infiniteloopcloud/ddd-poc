@@ -10,12 +10,12 @@ import (
 )
 
 type gatewayService struct {
-	gatewayStorage repository.GatewayStorage
+	paymentStorage repository.PaymentStorage
 }
 
 func NewGateway() comm.GatewayDescriptor {
 	return gatewayService{
-		gatewayStorage: repository.NewGateway(),
+		paymentStorage: repository.New(),
 	}
 }
 
@@ -25,25 +25,25 @@ func (g gatewayService) Setup(ctx context.Context, r *types.Gateway) error {
 	}
 
 	// TODO implement some kind of a setup logic
-	return g.gatewayStorage.Create(ctx, r)
+	return g.paymentStorage.Gateway.Create(ctx, r)
 }
 
 func (g gatewayService) Update(ctx context.Context, r *types.Gateway) error {
-	//TODO implement me
-	panic("implement me")
+	if err := r.Validate(); err != nil {
+		return err
+	}
+
+	return g.paymentStorage.Gateway.Update(ctx, r)
 }
 
 func (g gatewayService) Delete(ctx context.Context, id string) error {
-	//TODO implement me
-	panic("implement me")
+	return g.paymentStorage.Gateway.Delete(ctx, id)
 }
 
 func (g gatewayService) Get(ctx context.Context, f *filters.Gateway) (*types.Gateway, error) {
-	//TODO implement me
-	panic("implement me")
+	return g.paymentStorage.Gateway.Get(ctx, f)
 }
 
 func (g gatewayService) GetAll(ctx context.Context, f *filters.Gateway) ([]types.Gateway, error) {
-	//TODO implement me
-	panic("implement me")
+	return g.paymentStorage.Gateway.GetAll(ctx, f)
 }
