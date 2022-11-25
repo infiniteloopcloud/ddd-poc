@@ -14,5 +14,9 @@ type TransactionDescriptor interface {
 }
 
 type GatewayDescriptor interface {
-	Setup(ctx context.Context, r *types.Gateway) (*types.Gateway, error)
+	Setup(ctx context.Context, r *types.Gateway) error
+	Update(ctx context.Context, r *types.Gateway) error
+	Delete(ctx context.Context, id string) error
+	Get(ctx context.Context, f *filters.Gateway) (*types.Gateway, error)
+	GetAll(ctx context.Context, f *filters.Gateway) ([]types.Gateway, error)
 }
