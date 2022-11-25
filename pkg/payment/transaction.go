@@ -1,4 +1,4 @@
-package stock
+package payment
 
 import (
 	"context"
