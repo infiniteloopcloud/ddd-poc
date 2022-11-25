@@ -7,33 +7,33 @@ import (
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"
 )
 
-type userSQL struct{}
+type sql struct{}
 
-func newUserSQL() UserStorage {
-	return userSQL{}
+func newSQL() Storage {
+	return sql{}
 }
 
-func (s userSQL) Create(ctx context.Context, u *types.User) error {
+func (s sql) Create(ctx context.Context, u *types.User) error {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s userSQL) Update(ctx context.Context, u *types.User) error {
+func (s sql) Update(ctx context.Context, u *types.User) error {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s userSQL) Delete(ctx context.Context, id string) error {
+func (s sql) Delete(ctx context.Context, id string) error {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s userSQL) Get(ctx context.Context, r *filters.User) (types.User, error) {
+func (s sql) Get(ctx context.Context, r *filters.User) (types.User, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s userSQL) GetAll(ctx context.Context, r *filters.User) (types.User, error) {
+func (s sql) GetAll(ctx context.Context, r *filters.User) (types.User, error) {
 	//TODO implement me
 	panic("implement me")
 }

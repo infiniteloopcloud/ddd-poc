@@ -7,7 +7,7 @@ import (
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"
 )
 
-type UserStorage interface {
+type Storage interface {
 	Create(ctx context.Context, u *types.User) error
 	Update(ctx context.Context, u *types.User) error
 	Delete(ctx context.Context, id string) error
@@ -17,26 +17,26 @@ type UserStorage interface {
 
 type userStorage struct{}
 
-func NewUser() UserStorage {
+func NewUser() Storage {
 	return userStorage{}
 }
 
 func (s userStorage) Create(ctx context.Context, u *types.User) error {
-	return newUserSQL().Create(ctx, u)
+	return newSQL().Create(ctx, u)
 }
 
 func (s userStorage) Update(ctx context.Context, u *types.User) error {
-	return newUserSQL().Update(ctx, u)
+	return newSQL().Update(ctx, u)
 }
 
 func (s userStorage) Delete(ctx context.Context, id string) error {
-	return newUserSQL().Delete(ctx, id)
+	return newSQL().Delete(ctx, id)
 }
 
 func (s userStorage) Get(ctx context.Context, r *filters.User) (types.User, error) {
-	return newUserSQL().Get(ctx, r)
+	return newSQL().Get(ctx, r)
 }
 
 func (s userStorage) GetAll(ctx context.Context, r *filters.User) (types.User, error) {
-	return newUserSQL().GetAll(ctx, r)
+	return newSQL().GetAll(ctx, r)
 }

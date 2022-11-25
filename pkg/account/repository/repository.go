@@ -6,8 +6,8 @@ import (
 )
 
 type AccountStorage struct {
-	User     user.UserStorage
-	Merchant merchant.MerchantStorage
+	User     user.Storage
+	Merchant merchant.Storage
 }
 
 func New() AccountStorage {
