@@ -23,7 +23,7 @@ func SetupGateway(w http.ResponseWriter, r *http.Request) {
 	httpio.ResponseSuccess(w, req)
 }
 
-func Update(w http.ResponseWriter, r *http.Request) {
+func UpdateGateway(w http.ResponseWriter, r *http.Request) {
 	req, err := httpio.Bind[types.Gateway](r.Body)
 	if err != nil {
 		httpio.ResponseBadRequest(w)
@@ -36,7 +36,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	httpio.ResponseSuccess(w, req)
 }
 
-func Delete(w http.ResponseWriter, r *http.Request) {
+func DeleteGateway(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 	if err := payment.NewGateway().Delete(r.Context(), id); err != nil {
 		httpio.ResponseBadRequest(w)
@@ -45,7 +45,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	httpio.ResponseSuccess(w, nil)
 }
 
-func Get(w http.ResponseWriter, r *http.Request) {
+func GetGateway(w http.ResponseWriter, r *http.Request) {
 	f, err := httpio.Bind[filters.Gateway](r.Body)
 	if err != nil {
 		httpio.ResponseBadRequest(w)
@@ -59,7 +59,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	httpio.ResponseSuccess(w, resp)
 }
 
-func GetAll(w http.ResponseWriter, r *http.Request) {
+func GetAllGateway(w http.ResponseWriter, r *http.Request) {
 	f, err := httpio.Bind[filters.Gateway](r.Body)
 	if err != nil {
 		httpio.ResponseBadRequest(w)
