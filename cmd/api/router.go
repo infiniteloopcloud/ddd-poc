@@ -16,39 +16,9 @@ func Run() error {
 	r.Use(middleware.Logger)
 
 	r.Route("/api", func(r chi.Router) {
-		r.Post("/merchants", accountControllers.CreateMerchant)
-		r.Put("/merchants/{id}", accountControllers.UpdateMerchant)
-		r.Delete("/merchants/{id}", accountControllers.DeleteMerchant)
-		r.Get("/merchants/{id}", accountControllers.GetMerchant)
-		r.Get("/merchants", accountControllers.GetMerchants)
-
-		r.Post("/users", accountControllers.CreateUser)
-		r.Put("/users/{id}", accountControllers.UpdateUser)
-		r.Delete("/users/{id}", accountControllers.DeleteUser)
-		r.Get("/users/{id}", accountControllers.GetUser)
-		r.Get("/users", accountControllers.GetUsers)
-
-		r.Post("/transactions", paymentControllers.CreateTransaction)
-		r.Get("/transactions/{id}", paymentControllers.GetTransaction)
-		r.Get("/transactions", paymentControllers.GetAllTransactions)
-
-		r.Post("/gateways", paymentControllers.SetupGateway)
-		r.Put("/gateways/{id}", paymentControllers.UpdateGateway)
-		r.Delete("/gateways/{id}", paymentControllers.DeleteGateway)
-		r.Get("/gateways/{id}", paymentControllers.GetGateway)
-		r.Get("/gateways", paymentControllers.GetAllGateway)
-
-		r.Post("/products", stockControllers.CreateProduct)
-		r.Put("/products/{id}", stockControllers.UpdateProduct)
-		r.Delete("/products/{id}", stockControllers.DeleteProduct)
-		r.Get("/products/{id}", stockControllers.GetProduct)
-		r.Get("/products", stockControllers.GetAllProducts)
-
-		r.Post("/carts", stockControllers.CreateCart)
-		r.Put("/carts/{id}", stockControllers.UpdateCart)
-		r.Delete("/carts/{id}", stockControllers.DeleteCart)
-		r.Get("/carts/{id}", stockControllers.GetCart)
-		r.Get("/carts", stockControllers.GetAllCarts)
+		accountControllers.Register(r)
+		paymentControllers.Register(r)
+		stockControllers.Register(r)
 	})
 
 	return http.ListenAndServe(settings.Get().HttpAddress, r)
