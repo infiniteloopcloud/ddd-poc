@@ -19,6 +19,14 @@ func Run() error {
 		r.Get("/merchants/{id}", accountControllers.GetMerchant)
 
 		r.Get("/transactions/{id}", paymentControllers.GetTransaction)
+		r.Get("/transactions", paymentControllers.GetAllTransactions)
+		r.Post("/transactions", paymentControllers.CreateTransaction)
+
+		r.Get("/gateways/{id}", paymentControllers.GetGateway)
+		r.Get("/gateways", paymentControllers.GetAllGateway)
+		r.Post("/gateways", paymentControllers.SetupGateway)
+		r.Put("/gateways", paymentControllers.UpdateGateway)
+		r.Delete("/gateways/{id}", paymentControllers.DeleteGateway)
 
 		r.Get("/products/{id}", stockControllers.GetProduct)
 	})
