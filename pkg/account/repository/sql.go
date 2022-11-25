@@ -3,8 +3,8 @@ package repository
 import (
 	"context"
 
-	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/account/repository/filters"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types"
+	filters2 "github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"
 )
 
 type userSQL struct{}
@@ -28,12 +28,12 @@ func (s userSQL) Delete(ctx context.Context, id string) error {
 	panic("implement me")
 }
 
-func (s userSQL) Get(ctx context.Context, r *filters.User) (types.User, error) {
+func (s userSQL) Get(ctx context.Context, r *filters2.User) (types.User, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s userSQL) GetAll(ctx context.Context, r *filters.User) (types.User, error) {
+func (s userSQL) GetAll(ctx context.Context, r *filters2.User) (types.User, error) {
 	//TODO implement me
 	panic("implement me")
 }
@@ -59,12 +59,12 @@ func (s merchantSQL) Delete(ctx context.Context, id string) error {
 	panic("implement me")
 }
 
-func (s merchantSQL) Get(ctx context.Context, r *filters.Merchant) (types.Merchant, error) {
+func (s merchantSQL) Get(ctx context.Context, r *filters2.Merchant) (types.Merchant, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (s merchantSQL) GetAll(ctx context.Context, r *filters.Merchant) (types.Merchant, error) {
+func (s merchantSQL) GetAll(ctx context.Context, r *filters2.Merchant) (types.Merchant, error) {
 	//TODO implement me
 	panic("implement me")
 }

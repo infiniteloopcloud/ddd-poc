@@ -6,8 +6,8 @@ import (
 
 	"github.com/infiniteloopcloud/webshop-poc-ddd/comm"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/account/repository"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/account/repository/filters"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/types/filters"
 )
 
 type merchantService struct {
