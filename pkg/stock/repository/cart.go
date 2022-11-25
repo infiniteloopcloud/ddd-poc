@@ -1,4 +1,4 @@
-package comm
+package repository
 
 import (
 	"context"
@@ -7,15 +7,7 @@ import (
 	"github.com/infiniteloopcloud/webshop-poc-ddd/types"
 )
 
-type ProductDescriptor interface {
-	Create(ctx context.Context, r *types.Product) (*types.Product, error)
-	Update(ctx context.Context, r *types.Product) (*types.Product, error)
-	Delete(ctx context.Context, id string) error
-	Get(ctx context.Context, f *filters.Product) (*types.Product, error)
-	GetAll(ctx context.Context, f *filters.Product) ([]types.Product, error)
-}
-
-type CartDescriptor interface {
+type CartStorage interface {
 	Create(ctx context.Context, r *types.Cart) (*types.Cart, error)
 	Update(ctx context.Context, r *types.Cart) (*types.Cart, error)
 	Delete(ctx context.Context, id string) error
