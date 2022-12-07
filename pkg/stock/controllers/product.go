@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/stock"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/dep"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/proto"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/proto/filters"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/utils/httpio"
@@ -16,7 +16,7 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 		httpio.ResponseBadRequest(w)
 		return
 	}
-	product, err := stock.NewProduct().Create(r.Context(), &req)
+	product, err := dep.Product.Create(r.Context(), &req)
 	if err != nil {
 		httpio.ResponseBadRequest(w)
 		return
@@ -30,7 +30,7 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 		httpio.ResponseBadRequest(w)
 		return
 	}
-	product, err := stock.NewProduct().Update(r.Context(), &req)
+	product, err := dep.Product.Update(r.Context(), &req)
 	if err != nil {
 		httpio.ResponseBadRequest(w)
 		return
@@ -40,7 +40,7 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 
 func DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
-	if err := stock.NewProduct().Delete(r.Context(), id); err != nil {
+	if err := dep.Product.Delete(r.Context(), id); err != nil {
 		httpio.ResponseBadRequest(w)
 		return
 	}
@@ -53,7 +53,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 		httpio.ResponseBadRequest(w)
 		return
 	}
-	resp, err := stock.NewProduct().Get(r.Context(), &f)
+	resp, err := dep.Product.Get(r.Context(), &f)
 	if err != nil {
 		httpio.ResponseBadRequest(w)
 		return
@@ -67,7 +67,7 @@ func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 		httpio.ResponseBadRequest(w)
 		return
 	}
-	resp, err := stock.NewProduct().GetAll(r.Context(), &f)
+	resp, err := dep.Product.GetAll(r.Context(), &f)
 	if err != nil {
 		httpio.ResponseBadRequest(w)
 		return

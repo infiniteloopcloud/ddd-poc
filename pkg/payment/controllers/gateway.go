@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/payment"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/dep"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/proto"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/proto/filters"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/utils/httpio"
@@ -16,7 +16,7 @@ func SetupGateway(w http.ResponseWriter, r *http.Request) {
 		httpio.ResponseBadRequest(w)
 		return
 	}
-	if err := payment.NewGateway().Setup(r.Context(), &req); err != nil {
+	if err := dep.Gateway.Setup(r.Context(), &req); err != nil {
 		httpio.ResponseBadRequest(w)
 		return
 	}
@@ -29,7 +29,7 @@ func UpdateGateway(w http.ResponseWriter, r *http.Request) {
 		httpio.ResponseBadRequest(w)
 		return
 	}
-	if err := payment.NewGateway().Update(r.Context(), &req); err != nil {
+	if err := dep.Gateway.Update(r.Context(), &req); err != nil {
 		httpio.ResponseBadRequest(w)
 		return
 	}
@@ -38,7 +38,7 @@ func UpdateGateway(w http.ResponseWriter, r *http.Request) {
 
 func DeleteGateway(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
-	if err := payment.NewGateway().Delete(r.Context(), id); err != nil {
+	if err := dep.Gateway.Delete(r.Context(), id); err != nil {
 		httpio.ResponseBadRequest(w)
 		return
 	}
@@ -51,7 +51,7 @@ func GetGateway(w http.ResponseWriter, r *http.Request) {
 		httpio.ResponseBadRequest(w)
 		return
 	}
-	resp, err := payment.NewGateway().Get(r.Context(), &f)
+	resp, err := dep.Gateway.Get(r.Context(), &f)
 	if err != nil {
 		httpio.ResponseBadRequest(w)
 		return
@@ -65,7 +65,7 @@ func GetAllGateway(w http.ResponseWriter, r *http.Request) {
 		httpio.ResponseBadRequest(w)
 		return
 	}
-	resp, err := payment.NewGateway().GetAll(r.Context(), &f)
+	resp, err := dep.Gateway.GetAll(r.Context(), &f)
 	if err != nil {
 		httpio.ResponseBadRequest(w)
 		return

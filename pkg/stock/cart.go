@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	comm2 "github.com/infiniteloopcloud/webshop-poc-ddd/pkg/payment/comm"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/dep"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/stock/comm"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/stock/repository"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/proto"
@@ -12,14 +12,12 @@ import (
 )
 
 type cartService struct {
-	transaction comm2.TransactionDescriptor
-	storage     repository.StockStorage
+	storage repository.StockStorage
 }
 
-func NewCart(payment comm2.TransactionDescriptor) comm.CartDescriptor {
+func NewCart() comm.CartDescriptor {
 	return cartService{
-		transaction: payment,
-		storage:     repository.New(),
+		storage: repository.New(),
 	}
 }
 
@@ -103,5 +101,5 @@ func (cs cartService) Pay(ctx context.Context, r *proto.PayCart) error {
 	if err := r.Validate(); err != nil {
 		return err
 	}
-	return cs.transaction.Create(ctx, &r.Transaction)
+	return dep.Transaction.Create(ctx, &r.Transaction)
 }

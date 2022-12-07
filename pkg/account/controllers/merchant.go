@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/account"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/dep"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/proto"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/proto/filters"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/utils/httpio"
@@ -16,7 +16,7 @@ func CreateMerchant(w http.ResponseWriter, r *http.Request) {
 		httpio.ResponseBadRequest(w)
 		return
 	}
-	if err := account.NewMerchant().Create(r.Context(), &req); err != nil {
+	if err := dep.Merchant.Create(r.Context(), &req); err != nil {
 		httpio.ResponseBadRequest(w)
 		return
 	}
@@ -29,7 +29,7 @@ func UpdateMerchant(w http.ResponseWriter, r *http.Request) {
 		httpio.ResponseBadRequest(w)
 		return
 	}
-	if err := account.NewMerchant().Update(r.Context(), &req); err != nil {
+	if err := dep.Merchant.Update(r.Context(), &req); err != nil {
 		httpio.ResponseBadRequest(w)
 		return
 	}
@@ -38,7 +38,7 @@ func UpdateMerchant(w http.ResponseWriter, r *http.Request) {
 
 func DeleteMerchant(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
-	if err := account.NewMerchant().Delete(r.Context(), id); err != nil {
+	if err := dep.Merchant.Delete(r.Context(), id); err != nil {
 		httpio.ResponseBadRequest(w)
 		return
 	}
@@ -51,7 +51,7 @@ func GetMerchant(w http.ResponseWriter, r *http.Request) {
 		httpio.ResponseBadRequest(w)
 		return
 	}
-	resp, err := account.NewMerchant().Get(r.Context(), &f)
+	resp, err := dep.Merchant.Get(r.Context(), &f)
 	if err != nil {
 		httpio.ResponseBadRequest(w)
 		return
@@ -65,7 +65,7 @@ func GetMerchants(w http.ResponseWriter, r *http.Request) {
 		httpio.ResponseBadRequest(w)
 		return
 	}
-	resp, err := account.NewMerchant().GetAll(r.Context(), &f)
+	resp, err := dep.Merchant.GetAll(r.Context(), &f)
 	if err != nil {
 		httpio.ResponseBadRequest(w)
 		return

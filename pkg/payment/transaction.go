@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	comm2 "github.com/infiniteloopcloud/webshop-poc-ddd/pkg/account/comm"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/dep"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/payment/comm"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/payment/repository"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/proto"
@@ -13,16 +13,11 @@ import (
 
 type transactionService struct {
 	paymentStorage repository.PaymentStorage
-
-	merchant comm2.MerchantDescriptor
-	user     comm2.UserDescriptor
 }
 
-func NewTransaction(merchant comm2.MerchantDescriptor, user comm2.UserDescriptor) comm.TransactionDescriptor {
+func NewTransaction() comm.TransactionDescriptor {
 	return transactionService{
 		paymentStorage: repository.New(),
-		merchant:       merchant,
-		user:           user,
 	}
 }
 
@@ -30,13 +25,13 @@ func (t transactionService) Create(ctx context.Context, r *proto.Transaction) er
 	if err := r.Validate(); err != nil {
 		return err
 	}
-	user, err := t.user.Get(ctx, &filters.User{
+	user, err := dep.User.Get(ctx, &filters.User{
 		ID: r.UserID,
 	})
 	if err != nil {
 		return err
 	}
-	merchant, err := t.merchant.Get(ctx, &filters.Merchant{ID: r.MerchantID})
+	merchant, err := dep.Merchant.Get(ctx, &filters.Merchant{ID: r.MerchantID})
 	if err != nil {
 		return err
 	}

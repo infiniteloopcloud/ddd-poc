@@ -4,9 +4,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/account"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/payment"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/stock"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/dep"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/proto"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/proto/filters"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/utils/httpio"
@@ -18,7 +16,7 @@ func CreateCart(w http.ResponseWriter, r *http.Request) {
 		httpio.ResponseBadRequest(w)
 		return
 	}
-	product, err := stock.NewCart(payment.NewTransaction(account.NewMerchant(), account.NewUser())).Create(r.Context(), &req)
+	product, err := dep.Cart.Create(r.Context(), &req)
 	if err != nil {
 		httpio.ResponseBadRequest(w)
 		return
@@ -32,7 +30,7 @@ func UpdateCart(w http.ResponseWriter, r *http.Request) {
 		httpio.ResponseBadRequest(w)
 		return
 	}
-	product, err := stock.NewCart(payment.NewTransaction(account.NewMerchant(), account.NewUser())).Update(r.Context(), &req)
+	product, err := dep.Cart.Update(r.Context(), &req)
 	if err != nil {
 		httpio.ResponseBadRequest(w)
 		return
@@ -42,7 +40,7 @@ func UpdateCart(w http.ResponseWriter, r *http.Request) {
 
 func DeleteCart(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
-	if err := stock.NewCart(payment.NewTransaction(account.NewMerchant(), account.NewUser())).Delete(r.Context(), id); err != nil {
+	if err := dep.Cart.Delete(r.Context(), id); err != nil {
 		httpio.ResponseBadRequest(w)
 		return
 	}
@@ -55,7 +53,7 @@ func GetCart(w http.ResponseWriter, r *http.Request) {
 		httpio.ResponseBadRequest(w)
 		return
 	}
-	resp, err := stock.NewCart(payment.NewTransaction(account.NewMerchant(), account.NewUser())).Get(r.Context(), &f)
+	resp, err := dep.Cart.Get(r.Context(), &f)
 	if err != nil {
 		httpio.ResponseBadRequest(w)
 		return
@@ -69,7 +67,7 @@ func GetAllCarts(w http.ResponseWriter, r *http.Request) {
 		httpio.ResponseBadRequest(w)
 		return
 	}
-	resp, err := stock.NewCart(payment.NewTransaction(account.NewMerchant(), account.NewUser())).GetAll(r.Context(), &f)
+	resp, err := dep.Cart.GetAll(r.Context(), &f)
 	if err != nil {
 		httpio.ResponseBadRequest(w)
 		return

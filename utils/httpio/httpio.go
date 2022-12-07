@@ -10,7 +10,7 @@ func Bind[T any](body io.ReadCloser) (T, error) {
 	defer body.Close()
 	var t T
 	if err := json.NewDecoder(body).Decode(&t); err != nil {
-		return nil, err
+		return t, err
 	}
 	return t, nil
 }

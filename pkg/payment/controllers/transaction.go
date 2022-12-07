@@ -3,8 +3,7 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/account"
-	"github.com/infiniteloopcloud/webshop-poc-ddd/pkg/payment"
+	"github.com/infiniteloopcloud/webshop-poc-ddd/dep"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/proto"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/proto/filters"
 	"github.com/infiniteloopcloud/webshop-poc-ddd/utils/httpio"
@@ -16,7 +15,7 @@ func CreateTransaction(w http.ResponseWriter, r *http.Request) {
 		httpio.ResponseBadRequest(w)
 		return
 	}
-	if err := payment.NewTransaction(account.NewMerchant(), account.NewUser()).Create(r.Context(), &req); err != nil {
+	if err := dep.Transaction.Create(r.Context(), &req); err != nil {
 		httpio.ResponseBadRequest(w)
 		return
 	}
@@ -29,7 +28,7 @@ func GetTransaction(w http.ResponseWriter, r *http.Request) {
 		httpio.ResponseBadRequest(w)
 		return
 	}
-	tx, err := payment.NewTransaction(account.NewMerchant(), account.NewUser()).Get(r.Context(), &f)
+	tx, err := dep.Transaction.Get(r.Context(), &f)
 	if err != nil {
 		httpio.ResponseBadRequest(w)
 		return
@@ -43,7 +42,7 @@ func GetAllTransactions(w http.ResponseWriter, r *http.Request) {
 		httpio.ResponseBadRequest(w)
 		return
 	}
-	tx, err := payment.NewTransaction(account.NewMerchant(), account.NewUser()).GetAll(r.Context(), &f)
+	tx, err := dep.Transaction.GetAll(r.Context(), &f)
 	if err != nil {
 		httpio.ResponseBadRequest(w)
 		return
